@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const exchangeCtrl = require('../controllers/exchangeControllers');
+const tweetCtrl = require('../controllers/tweetControllers');
 
 router.route('/').post();
 
