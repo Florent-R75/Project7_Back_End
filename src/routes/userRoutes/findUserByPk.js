@@ -1,4 +1,4 @@
-const { User } = require('../src/connection');
+const { User } = require('../../connection');
 
 module.exports = (app) => {
   app.get('/api/users/:id', (req, res) => {

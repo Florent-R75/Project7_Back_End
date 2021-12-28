@@ -28,11 +28,11 @@ sequelize.initDB();
 
 // Routes
 
-require('./routes/findAllUsers')(app);
-require('./routes/findUserByPk')(app);
-require('./routes/createUser')(app);
-require('./routes/updateUser')(app);
-require('./routes/deleteUser')(app);
+require('./src/routes/userRoutes/findAllUsers')(app);
+require('./src/routes/userRoutes/findUserByPk')(app);
+require('./src/routes/userRoutes/createUser')(app);
+require('./src/routes/userRoutes/updateUser')(app);
+require('./src/routes/userRoutes/deleteUser')(app);
 
 // GESTION DES ERREURS
 

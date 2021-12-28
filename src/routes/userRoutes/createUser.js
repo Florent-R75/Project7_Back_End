@@ -1,4 +1,4 @@
-const { User } = require('../src/connection');
+const { User } = require('../../connection');
 const { ValidationError } = require('sequelize');
 
 module.exports = (app) => {
