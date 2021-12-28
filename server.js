@@ -3,6 +3,7 @@ dotenv.config({ path: './config.env' });
 const http = require('http');
 const app = require('./app');
 
+
 // SERVEUR
 
 const normalizePort = (val) => {
@@ -49,4 +50,7 @@ server.on('listening', () => {
   console.log('Listening on ' + bind);
 });
 
+
+
 server.listen(port);
+

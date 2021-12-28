@@ -3,13 +3,19 @@ const app = express();
 const morgan = require('morgan');
 const helmet = require('helmet');
 const joy = require('joy');
-const mysql =require('mysql2');
-const Sequelize  = require('sequelize');
+const mysql2 = require('mysql2');
+const sequelize = require('./src/connection');
+// const { Sequelize, DataTypes } = require('sequelize');
 const bodyParser = require('body-parser');
 const path = require('path');
-const userRoutes = require('./routes/userRoutes.js');
-const tweetRoutes = require('./routes/tweetRoutes');
+// const UserModel = require('./models/User');
+// const TweetModel = require('./models/Tweet');
+// const userRoutes = require('./routes/userRoutes');
+// const tweetRoutes = require('./routes/tweetRoutes');
+// const User=require(('./src/connection'));
+// const initDB=require('./src/connection');
 
+app.use(bodyParser.json());
 // MIDDLEWARE*************
 
 // Middleware de log
@@ -18,41 +24,28 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
+sequelize.initDB();
+
+// Routes
+
+require('./routes/findAllUsers')(app);
+require('./routes/findUserByPk')(app);
+require('./routes/createUser')(app);
+require('./routes/updateUser')(app);
+require('./routes/deleteUser')(app);
+
+// GESTION DES ERREURS
+
+// Erreurs 404
+
+app.use(({res})=>{
+  const message = 'Impossible de trouver la ressource demandé! Vous pouvez essayer une autre URL'
+  res.status(404).json(message)
+})
 
 
 
-// Connection a la DB 
 
-const sequelize = new Sequelize('groupomania', 'root', 'jesuis', {
-  host: 'localhost',
-  dialect:  'mysql',
-  operatorAliases:false,
-
-  pool:{
-    max:5,
-    min:0,
-    acquire:3000,
-    idle:10000
-  },
-});
-
-// Test de connexion
-
-sequelize.authenticate().then(() =>{
-console.log('Connexion a MySql réussie !');
-}).catch(err =>{
-  console.log('Connexion à MySql échouée !');
-});
-
-
-const User = sequelize.define('user', {
-  firstName: {
-    type: Sequelize.STRING
-  },
-  lastName: {
-    type: Sequelize.STRING
-  }
-});
 
 // ------DEFINITION DES HEADERS----------
 
@@ -69,15 +62,16 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(bodyParser.json());
-
 // Middleware de securite
 
 app.use(helmet());
 
-app.use('/api/tweets', tweetRoutes);
+// app.post('/api/auth/signup', (req, res, next) => {
+//   res.send('Hello from the server side');
+// });
 
-app.use('/api/auth', userRoutes);
-// app.use('/images', express.static(path.join(__dirname, 'images')));
+// app.use('/api/tweets', tweetRoutes);
+
+// app.use('/api/auth', userRoutes);
 
 module.exports = app;
