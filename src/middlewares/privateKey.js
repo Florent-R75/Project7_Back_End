@@ -1,0 +1,1 @@
+module.exports= "RANDOM_PRIVATE_KEY"

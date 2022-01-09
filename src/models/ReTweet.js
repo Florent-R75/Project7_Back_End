@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define('Tweet', {
+  return sequelize.define('ReTweet', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -9,17 +9,13 @@ module.exports = (sequelize, DataTypes) => {
     content: {
       type: DataTypes.STRING,
       allowNull: true,
-      validate: {
-        len: {
-          args: [0, 300],
-          msg: 'Un Tweet doit contenir au minimum 2 caractères et au maximum 300 caractères ',
-        },
-      },
+      require: null,
     },
     imageUrl: {
       type: DataTypes.STRING,
       allowNull: true,
       require: null,
-    },
+    }
+    
   });
 };

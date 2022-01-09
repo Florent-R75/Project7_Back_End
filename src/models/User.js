@@ -33,11 +33,9 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notNull: { msg: 'Un mot de passe ne peut pas être nul' },
           notEmpty: { msg: 'Un mot de passe ne peut pas être vide' },
-          isAlphanumeric: {
-            msg: 'Un mot de passe ne peut pas contenir de caractères spéciaux',
-          },
+
           len: {
-            args: [2, 25],
+            args: [2, 100],
             msg: 'Un nom doit contenir au minimum 2 caractères et au maximum 25 caractères ',
           },
         },
@@ -50,3 +48,4 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 };
+
